@@ -1,0 +1,193 @@
+[gd_scene load_steps=19 format=3 uid="uid://prwtx4qph4sa"]
+
+[ext_resource type="Script" uid="uid://wxe3cc3pt2px" path="res://scripts/add_energy.gd" id="1_c16ls"]
+[ext_resource type="Script" uid="uid://dg8ohiisoo6sw" path="res://scripts/player_movement.gd" id="1_w2twt"]
+[ext_resource type="Script" uid="uid://bbvsymvwgh8jk" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_7ykc4"]
+[ext_resource type="Script" uid="uid://0fl0bnch5yek" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_gubc5"]
+[ext_resource type="Script" uid="uid://dlexewiouo2yn" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_pu3yx"]
+[ext_resource type="Script" uid="uid://bomp7gl6hf50q" path="res://scripts/energy_bar.gd" id="5_gubc5"]
+[ext_resource type="Script" uid="uid://cjgqcqq1xf63f" path="res://scripts/timer.gd" id="6_rt2n2"]
+[ext_resource type="Script" uid="uid://cyhxga13dtwq3" path="res://scripts/kill_plain.gd" id="8_18nlu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pu3yx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w2twt"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o3jxj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0f027"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2c62f"]
+
+[sub_resource type="Resource" id="Resource_pu3yx"]
+script = ExtResource("3_pu3yx")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_gubc5"]
+font_size = 36
+outline_size = 9
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c16ls"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_18nlu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c1pb6"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_w2twt")
+
+[node name="Collision_Player" type="CollisionShape3D" parent="Player"]
+shape = SubResource("BoxShape3D_pu3yx")
+
+[node name="Mesh_Player" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("BoxMesh_w2twt")
+skeleton = NodePath("../Collision_Player")
+
+[node name="Spawn" type="StaticBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_o3jxj")
+
+[node name="Collision_Floor" type="CollisionShape3D" parent="Spawn"]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
+shape = SubResource("BoxShape3D_0f027")
+
+[node name="Mesh_Floor" type="MeshInstance3D" parent="Spawn"]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 0)
+mesh = SubResource("BoxMesh_2c62f")
+
+[node name="Plat_1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -27)
+
+[node name="Collision_P" type="CollisionShape3D" parent="Plat_1"]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 5)
+shape = SubResource("BoxShape3D_0f027")
+
+[node name="Mesh_P" type="MeshInstance3D" parent="Plat_1"]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 5)
+mesh = SubResource("BoxMesh_2c62f")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.2222e-08, -0.258819, 0.965926, -1.13133e-08, 0.965926, 0.258819, -1, 0, -4.37114e-08, 3.64287, 4.17234, -1)
+
+[node name="Plat_2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -49)
+
+[node name="Collision_P" type="CollisionShape3D" parent="Plat_2"]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 5)
+shape = SubResource("BoxShape3D_0f027")
+
+[node name="Mesh_P" type="MeshInstance3D" parent="Plat_2"]
+transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 20, 0, 0, 5)
+mesh = SubResource("BoxMesh_2c62f")
+
+[node name="Plat_3" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 5, -57)
+
+[node name="Collision_P" type="CollisionShape3D" parent="Plat_3"]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 7, 0, 0, 5)
+shape = SubResource("BoxShape3D_0f027")
+
+[node name="Mesh_P" type="MeshInstance3D" parent="Plat_3"]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 7, 0, 0, 5)
+mesh = SubResource("BoxMesh_2c62f")
+
+[node name="Plat_4" type="StaticBody3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 8, 15, -59)
+
+[node name="Collision_P" type="CollisionShape3D" parent="Plat_4"]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 7, 3, 0, 6)
+shape = SubResource("BoxShape3D_0f027")
+
+[node name="Mesh_P" type="MeshInstance3D" parent="Plat_4"]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 7, 3, 0, 6)
+mesh = SubResource("BoxMesh_2c62f")
+skeleton = NodePath("../../Plat_4")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 5)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_gubc5")
+metadata/_custom_type_script = "uid://0fl0bnch5yek"
+
+[node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 5)
+top_level = true
+script = ExtResource("2_7ykc4")
+follow_mode = 2
+follow_target = NodePath("../Player")
+tween_resource = SubResource("Resource_pu3yx")
+follow_offset = Vector3(0, 1.5, 5)
+follow_damping = true
+metadata/_custom_type_script = "uid://bbvsymvwgh8jk"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.008
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = -0.184021
+
+[node name="EnergyBar" type="ProgressBar" parent="Control"]
+self_modulate = Color(0.932302, 0.908789, 1.54018e-06, 1)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -38.0
+offset_right = -10.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("5_gubc5")
+
+[node name="Timer" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -89.0
+offset_right = -15.0
+offset_bottom = -39.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "120"
+label_settings = SubResource("LabelSettings_gubc5")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_rt2n2")
+
+[node name="Coffee" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3)
+script = ExtResource("1_c16ls")
+
+[node name="Collision_Coffee" type="CollisionShape3D" parent="Coffee"]
+shape = SubResource("CapsuleShape3D_c16ls")
+
+[node name="Mesh_Coffee" type="MeshInstance3D" parent="Coffee"]
+mesh = SubResource("CapsuleMesh_18nlu")
+skeleton = NodePath("../Collision_Coffee")
+
+[node name="Kill_Plain" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -47, -3)
+script = ExtResource("8_18nlu")
+
+[node name="Collision_KP" type="CollisionShape3D" parent="Kill_Plain"]
+transform = Transform3D(31915.1, 0, 0, 0, 1, 0, 0, 0, 7744.58, 0, 0, 0)
+shape = SubResource("BoxShape3D_c1pb6")
