@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbgau1imbtxl"]
+
+[ext_resource type="ArrayMesh" uid="uid://dvrrewessyskc" path="res://models/side_cliff_blocker.obj" id="1_xp4v7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jfr34"]
+size = Vector3(0.8, 1.2, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7qoe"]
+size = Vector3(1, 0.229761, 0.428516)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Cliff" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cliff"]
+mesh = ExtResource("1_xp4v7")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Cliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_jfr34")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cliff"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_h7qoe")
