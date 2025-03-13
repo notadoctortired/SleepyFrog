@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://prwtx4qph4sa"]
+[gd_scene load_steps=27 format=3 uid="uid://prwtx4qph4sa"]
 
 [ext_resource type="Script" uid="uid://wxe3cc3pt2px" path="res://scripts/add_energy.gd" id="1_c16ls"]
 [ext_resource type="Script" uid="uid://dg8ohiisoo6sw" path="res://scripts/player_movement.gd" id="1_w2twt"]
@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cjgqcqq1xf63f" path="res://scripts/timer.gd" id="6_rt2n2"]
 [ext_resource type="Script" uid="uid://cyhxga13dtwq3" path="res://scripts/kill_plain.gd" id="8_18nlu"]
 [ext_resource type="ArrayMesh" uid="uid://dvrrewessyskc" path="res://models/side_cliff_blocker.obj" id="9_c1pb6"]
-[ext_resource type="Script" uid="uid://c5mykx208e3sp" path="res://scenes/barrier_detection.gd" id="10_6wevv"]
+[ext_resource type="Script" uid="uid://c5mykx208e3sp" path="res://scripts/barrier_detection.gd" id="10_6wevv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pu3yx"]
 
@@ -34,6 +34,8 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mngbo"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_4w45t"]
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o3jxj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0f027"]
@@ -45,6 +47,10 @@ size = Vector3(0.8, 1.2, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e1cbu"]
 size = Vector3(1, 0.229761, 0.428516)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r6p65"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_si52b"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -64,7 +70,7 @@ transform = Transform3D(-4.2222e-08, -0.258819, 0.965926, -1.13133e-08, 0.965926
 
 [node name="Camera3D" type="Camera3D" parent="."]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 0, 2.5, 5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 process_priority = 300
@@ -73,7 +79,7 @@ script = ExtResource("2_gubc5")
 metadata/_custom_type_script = "uid://0fl0bnch5yek"
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 0, 2.5, 5)
 top_level = true
 script = ExtResource("2_7ykc4")
 follow_mode = 2
@@ -151,21 +157,28 @@ shape = SubResource("BoxShape3D_c1pb6")
 [node name="Floor_and_Walls" type="Node3D" parent="."]
 
 [node name="Right_Barrier" type="Area3D" parent="Floor_and_Walls"]
-transform = Transform3D(1.74, 0, 0, 0, 20.646, 0, 0, 0, 300, -10, 6, -147)
+transform = Transform3D(1.74, 0, 0, 0, 20.646, 0, 0, 0, 468, -9.50174, 6, -184)
 script = ExtResource("10_6wevv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_and_Walls/Right_Barrier"]
 shape = SubResource("BoxShape3D_mngbo")
 
 [node name="Left_Barrier" type="Area3D" parent="Floor_and_Walls"]
-transform = Transform3D(1.74, 0, 0, 0, 20.646, 0, 0, 0, 300, 9.49826, 6, -147)
+transform = Transform3D(1.74, 0, 0, 0, 20.646, 0, 0, 0, 468, 9.49826, 6, -184)
 script = ExtResource("10_6wevv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_and_Walls/Left_Barrier"]
 shape = SubResource("BoxShape3D_mngbo")
 
+[node name="Back_Barrier" type="Area3D" parent="Floor_and_Walls"]
+transform = Transform3D(35.805, 0, 0, 0, 12.6, 0, 0, 0, 3.9, 0, 6, 12)
+script = ExtResource("10_6wevv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor_and_Walls/Back_Barrier"]
+shape = SubResource("BoxShape3D_4w45t")
+
 [node name="Floor" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -147)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.47, 0, 0, -195.5)
 physics_material_override = SubResource("PhysicsMaterial_o3jxj")
 
 [node name="Collision_Floor" type="CollisionShape3D" parent="Floor_and_Walls/Floor"]
@@ -176,478 +189,722 @@ shape = SubResource("BoxShape3D_0f027")
 transform = Transform3D(20, 0, 0, 0, 0.5, 0, 0, 0, 300, 0, 0, 0)
 mesh = SubResource("BoxMesh_2c62f")
 
-[node name="Cliff17" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -287)
+[node name="Cliff_0" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(24.96, 0, -4.40536e-13, 0, 6.188, 0, 3.75167e-12, 0, 4, 0, 3.5, 12)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff17"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff17"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff17"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff16" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -269)
+[node name="Cliff_1" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.41835e-06, 0, -4, 0, 6.188, 0, 32.448, 0, -1.74846e-07, -10, 3.5, 10.9382)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff16"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_1"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff16"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff16"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff15" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -260)
+[node name="Cliff_2" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(4.25504e-06, 0, 4, 0, 6.188, 0, -32.448, 0, 5.24537e-07, 9.99999, 3.5, 11.4735)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff15"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_2"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff15"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff15"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff14" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -242)
+[node name="Cliff_3" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -6.99998)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff14"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_3"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff14"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff14"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff13" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -223)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff13"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff13"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff13"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff12" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -204)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff12"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff12"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff12"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff11" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -186)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff11"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff11"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff11"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -7)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff2" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -23)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff2"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff3" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -37)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff3"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff4" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -56)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff4"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff5" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -75)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff5"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff6" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -93)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff6"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff7" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -112)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff7"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff8" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -131)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff8"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff9" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -149)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff9"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff9"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff10" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -167)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff10"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff18" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_4" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -6.58823)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff18"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_4"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff18"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff18"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff19" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_5" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -23)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_5"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_6" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -24.5882)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff19"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_6"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff19"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff19"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff20" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_7" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -37)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_7"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_8" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -33.5882)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff20"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_8"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff20"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff20"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff21" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_9" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -56)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_9"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_10" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -51.5882)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff21"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_10"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff21"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff21"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff22" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_11" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_11"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_12" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -70.5882)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff22"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_12"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff22"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff22"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff23" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_13" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -93)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_13"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_14" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -89.5882)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff23"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_14"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff23"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_14"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff23"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_14"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff24" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_15" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -112)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_15"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_16" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -107.588)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff24"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_16"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff24"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_16"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff24"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_16"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff25" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -286.988)
+[node name="Cliff_17" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -131)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff25"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_17"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff25"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_17"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff25"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_17"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
-[node name="Cliff26" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -270.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff26"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff26"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff26"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff27" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -256.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff27"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff27"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff27"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff28" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -237.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff28"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff28"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff28"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff29" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -218.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff29"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff29"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff29"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff30" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -200.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff30"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff30"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff30"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff31" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -181.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff31"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff31"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff31"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff32" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -162.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff32"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff32"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff32"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff33" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -144.588)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff33"]
-mesh = ExtResource("9_c1pb6")
-
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff33"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
-shape = SubResource("BoxShape3D_6wevv")
-
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff33"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
-shape = SubResource("BoxShape3D_e1cbu")
-
-[node name="Cliff34" type="StaticBody3D" parent="Floor_and_Walls"]
+[node name="Cliff_18" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -126.588)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff34"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_18"]
 mesh = ExtResource("9_c1pb6")
 
-[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff34"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_18"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_6wevv")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff34"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_18"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_19" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -149)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_19"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_20" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -144.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_20"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_21" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -167)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_21"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_21"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_21"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_22" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -162.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_22"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_22"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_22"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_23" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -186)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_23"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_23"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_23"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_24" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -181.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_24"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_24"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_24"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_25" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -204)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_25"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_25"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_25"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_26" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -200.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_26"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_26"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_26"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_27" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -223)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_27"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_28" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -218.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_28"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_28"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_29" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -242)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_29"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_29"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_29"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_30" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -237.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_30"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_30"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_30"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_31" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -260)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_31"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_31"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_31"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_32" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -256.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_32"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_32"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_32"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_33" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -269)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_33"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_33"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_33"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_34" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -270.588)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_34"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_34"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_34"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_35" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -287)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_35"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_35"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_35"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_36" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -286.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_36"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_36"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_36"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_37" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -304)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_37"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_37"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_37"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_38" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -303.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_38"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_38"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_38"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_39" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -320)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_39"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_39"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_39"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_40" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -319.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_40"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_40"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_40"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_41" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -338)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_41"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_41"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_41"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_42" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -337.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_42"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_42"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_42"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_43" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -354)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_43"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_43"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_43"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_44" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -353.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_44"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_44"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_44"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_45" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -372)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_45"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_45"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_45"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_46" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -371.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_46"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_46"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_46"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_47" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -390)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_47"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_47"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_47"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_48" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -389.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_48"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_48"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_48"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_49" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -406)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_49"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_49"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_49"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="Cliff_50" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -405.988)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_50"]
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_50"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_50"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 3.8, 0, 0, 0, 1, 0, 4, -10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_si52b")

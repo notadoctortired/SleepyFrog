@@ -27,17 +27,17 @@ func _physics_process(delta):
 	if is_on_floor() and barrier_check == false:
 		cooldown = false
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor() and cooldown == false:
-		target_velocity.y = jump
-		energy -= 0.5
-	if Input.is_action_just_pressed("jump") and is_on_wall() and cooldown == false:
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		target_velocity.y = jump
 		energy -= 1
+	if Input.is_action_just_pressed("jump") and is_on_wall() and cooldown == false:
+		target_velocity.y = jump
+		energy -= 2
 		
 		
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
-		energy -= 0.025
+		energy -= 0.05
 		$Mesh_Player.basis = Basis.looking_at(direction)
 	
 	target_velocity.x = direction.x * speed
