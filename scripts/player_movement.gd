@@ -6,7 +6,9 @@ extends CharacterBody3D
 @export var energy = 100
 
 var cooldown = false
+var barrier_check = false
 var target_velocity = Vector3.ZERO
+	
 
 func _physics_process(delta):
 	var direction = Vector3.ZERO
@@ -22,10 +24,10 @@ func _physics_process(delta):
 		
 	if is_on_ceiling():
 		cooldown = true
-	if is_on_floor():
+	if is_on_floor() and barrier_check == false:
 		cooldown = false
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor() and cooldown == false:
 		target_velocity.y = jump
 		energy -= 0.5
 	if Input.is_action_just_pressed("jump") and is_on_wall() and cooldown == false:

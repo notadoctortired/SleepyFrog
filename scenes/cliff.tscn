@@ -16,10 +16,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cliff"]
 mesh = ExtResource("1_xp4v7")
 
-[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Cliff"]
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Cliff"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
 shape = SubResource("BoxShape3D_jfr34")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Cliff"]
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Cliff"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_h7qoe")
