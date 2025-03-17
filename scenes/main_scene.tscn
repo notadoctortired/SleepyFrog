@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://prwtx4qph4sa"]
+[gd_scene load_steps=35 format=3 uid="uid://prwtx4qph4sa"]
 
 [ext_resource type="Script" uid="uid://wxe3cc3pt2px" path="res://scripts/add_energy.gd" id="1_c16ls"]
 [ext_resource type="Script" uid="uid://dg8ohiisoo6sw" path="res://scripts/player_movement.gd" id="1_w2twt"]
@@ -15,6 +15,7 @@
 [ext_resource type="Material" uid="uid://bdge1tdb058gl" path="res://materials/Road_Mat.tres" id="13_4w45t"]
 [ext_resource type="Script" uid="uid://nrnm1vr2sbfk" path="res://scripts/Kill Scripts/kill_script.gd" id="13_r6p65"]
 [ext_resource type="Material" uid="uid://gow1ki2m21ci" path="res://materials/Water_Mat.tres" id="14_r6p65"]
+[ext_resource type="PackedScene" uid="uid://cnu2q2p0ew25c" path="res://scenes/car.tscn" id="16_01n6w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pu3yx"]
 
@@ -990,7 +991,6 @@ transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -25)
 
 [node name="Area3D" type="Area3D" parent="Obstacles/Road"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
-script = ExtResource("13_r6p65")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road/Area3D"]
 shape = SubResource("BoxShape3D_r6p65")
@@ -1001,3 +1001,6 @@ mesh = SubResource("BoxMesh_si52b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road"]
 shape = SubResource("BoxShape3D_01n6w")
+
+[node name="Car" parent="Obstacles" instance=ExtResource("16_01n6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.07611, 1.34799, -24.6913)
