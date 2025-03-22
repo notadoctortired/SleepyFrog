@@ -1,7 +1,7 @@
 extends RigidBody3D
 
 @export var speed = 20
-var timer = 5
+var timer = 2
 var respawn = false
 var origin_pos: Vector3 = Vector3.ZERO
 
@@ -15,7 +15,7 @@ func _process(delta):
 	if timer > 0:
 		timer -= delta
 	else:
-		timer = 5
+		timer = 2
 		respawn = true
 	
 	if respawn:

@@ -7,7 +7,7 @@ func _ready():
 	body_entered.connect(_on_body_entered)
 	
 func _on_body_entered(body):
-	if body == plr:
+	if body.name == "Player":
 		if plr.energy < 100:
 			if plr.energy >= 80:
 				print("plr set to full")

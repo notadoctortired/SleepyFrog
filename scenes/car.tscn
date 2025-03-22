@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnu2q2p0ew25c"]
+[gd_scene load_steps=6 format=3 uid="uid://cnu2q2p0ew25c"]
 
-[ext_resource type="Script" uid="uid://dn2elxd2ybxk7" path="res://scripts/Car Scripts/car.gd" id="1_c35m8"]
+[ext_resource type="Script" uid="uid://dn2elxd2ybxk7" path="res://scripts/car.gd" id="1_c35m8"]
+[ext_resource type="Script" uid="uid://nrnm1vr2sbfk" path="res://scripts/kill_script.gd" id="2_qt2eu"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_7822p"]
 
@@ -23,7 +24,8 @@ transform = Transform3D(1.249, 0, 0, 0, 1.456, 0, 0, 0, 2.897, 0, 0, 0)
 shape = SubResource("BoxShape3D_c35m8")
 
 [node name="CarArea" type="Area3D" parent="Car_Moving"]
-transform = Transform3D(1.24923, 0, 0, 0, 1.45615, 0, 0, 0, 2.89726, 0, 0, 0)
+transform = Transform3D(1.29595, 0, 0, 0, 1.53066, 0, 0, 0, 2.96173, 0, 0, 0)
+script = ExtResource("2_qt2eu")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Car_Moving/CarArea"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
