@@ -1,19 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://djn8ltsdsvnjb"]
+[gd_scene load_steps=5 format=3 uid="uid://djn8ltsdsvnjb"]
 
 [ext_resource type="Script" uid="uid://wxe3cc3pt2px" path="res://scripts/add_energy.gd" id="1_tlbmd"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n0kls"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tlbmd"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_tlbmd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fe1ek"]
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vgd82"]
+
+[node name="Coffee" type="Node3D"]
 
 [node name="Coffee" type="Area3D" parent="."]
 script = ExtResource("1_tlbmd")
 
 [node name="Collision_Coffee" type="CollisionShape3D" parent="Coffee"]
-shape = SubResource("CapsuleShape3D_n0kls")
+shape = SubResource("CapsuleShape3D_tlbmd")
 
 [node name="Mesh_Coffee" type="MeshInstance3D" parent="Coffee"]
-mesh = SubResource("CapsuleMesh_tlbmd")
+material_override = SubResource("StandardMaterial3D_fe1ek")
+mesh = SubResource("CapsuleMesh_vgd82")
 skeleton = NodePath("../Collision_Coffee")

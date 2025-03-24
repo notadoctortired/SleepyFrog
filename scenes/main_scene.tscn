@@ -1,12 +1,12 @@
-[gd_scene load_steps=34 format=3 uid="uid://prwtx4qph4sa"]
+[gd_scene load_steps=31 format=3 uid="uid://prwtx4qph4sa"]
 
-[ext_resource type="Script" uid="uid://wxe3cc3pt2px" path="res://scripts/add_energy.gd" id="1_c16ls"]
 [ext_resource type="Script" uid="uid://dg8ohiisoo6sw" path="res://scripts/player_movement.gd" id="1_w2twt"]
 [ext_resource type="Script" uid="uid://bbvsymvwgh8jk" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_7ykc4"]
 [ext_resource type="Script" uid="uid://0fl0bnch5yek" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_gubc5"]
 [ext_resource type="Script" uid="uid://dlexewiouo2yn" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_pu3yx"]
 [ext_resource type="Script" uid="uid://bomp7gl6hf50q" path="res://scripts/energy_bar.gd" id="5_gubc5"]
 [ext_resource type="Script" uid="uid://cjgqcqq1xf63f" path="res://scripts/timer.gd" id="6_rt2n2"]
+[ext_resource type="PackedScene" uid="uid://djn8ltsdsvnjb" path="res://scenes/coffee.tscn" id="7_si52b"]
 [ext_resource type="ArrayMesh" uid="uid://dvrrewessyskc" path="res://models/side_cliff_blocker.obj" id="9_c1pb6"]
 [ext_resource type="Script" uid="uid://c5mykx208e3sp" path="res://scripts/barrier_detection.gd" id="10_6wevv"]
 [ext_resource type="Material" uid="uid://bngkyycmntx7a" path="res://materials/Cliff_Mat.tres" id="10_e1cbu"]
@@ -30,12 +30,6 @@ ease = 2
 font_size = 36
 outline_size = 9
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_c16ls"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mngbo"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_18nlu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c1pb6"]
 
@@ -62,12 +56,13 @@ size = Vector3(1, 0.229761, 0.428516)
 [sub_resource type="BoxShape3D" id="BoxShape3D_01n6w"]
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0884037, -9.53674e-07, -0.0657692)
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_w2twt")
 speed = 10
-jump = 30
+jump = 25
 
 [node name="Collision_Player" type="CollisionShape3D" parent="Player"]
 shape = SubResource("BoxShape3D_pu3yx")
@@ -84,7 +79,7 @@ light_bake_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 0, 2.5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 7.45058e-09, 3.5, 5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 process_priority = 300
@@ -93,13 +88,13 @@ script = ExtResource("2_gubc5")
 metadata/_custom_type_script = "uid://0fl0bnch5yek"
 
 [node name="PhantomCamera3D" type="Node3D" parent="." node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 0, 2.5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 0.0884037, 3.5, 4.93423)
 top_level = true
 script = ExtResource("2_7ykc4")
 follow_mode = 2
 follow_target = NodePath("../Player")
 tween_resource = SubResource("Resource_pu3yx")
-follow_offset = Vector3(0, 1.5, 5)
+follow_offset = Vector3(0, 2.5, 5)
 follow_damping = true
 metadata/_custom_type_script = "uid://bbvsymvwgh8jk"
 
@@ -149,17 +144,8 @@ script = ExtResource("6_rt2n2")
 
 [node name="Collectibles" type="Node3D" parent="."]
 
-[node name="Coffee" type="Area3D" parent="Collectibles"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3)
-script = ExtResource("1_c16ls")
-
-[node name="Collision_Coffee" type="CollisionShape3D" parent="Collectibles/Coffee"]
-shape = SubResource("CapsuleShape3D_c16ls")
-
-[node name="Mesh_Coffee" type="MeshInstance3D" parent="Collectibles/Coffee"]
-material_override = SubResource("StandardMaterial3D_mngbo")
-mesh = SubResource("CapsuleMesh_18nlu")
-skeleton = NodePath("../Collision_Coffee")
+[node name="Coffee" parent="Collectibles" instance=ExtResource("7_si52b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79723, -4.38909)
 
 [node name="Kill_Plain" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -47, -3)
@@ -968,21 +954,89 @@ shape = SubResource("BoxShape3D_e1cbu")
 
 [node name="Obstacles" type="Node3D" parent="."]
 
-[node name="River" type="StaticBody3D" parent="Obstacles"]
-transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -10)
+[node name="River 1" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 3.46547, 0, 0, -8.85631)
 
-[node name="Area3D" type="Area3D" parent="Obstacles/River"]
+[node name="Area3D" type="Area3D" parent="Obstacles/River 1"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
 script = ExtResource("13_r6p65")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 1/Area3D"]
 shape = SubResource("BoxShape3D_r6p65")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/River"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/River 1"]
 material_override = ExtResource("14_r6p65")
 mesh = SubResource("BoxMesh_si52b")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 1"]
+shape = SubResource("BoxShape3D_01n6w")
+
+[node name="River 2" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 3.46547, 0, 0, -15.1903)
+
+[node name="Area3D" type="Area3D" parent="Obstacles/River 2"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+script = ExtResource("13_r6p65")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 2/Area3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/River 2"]
+material_override = ExtResource("14_r6p65")
+mesh = SubResource("BoxMesh_si52b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 2"]
+shape = SubResource("BoxShape3D_01n6w")
+
+[node name="River 3" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 3.46547, 0, 0, -35.3014)
+
+[node name="Area3D" type="Area3D" parent="Obstacles/River 3"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+script = ExtResource("13_r6p65")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 3/Area3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/River 3"]
+material_override = ExtResource("14_r6p65")
+mesh = SubResource("BoxMesh_si52b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 3"]
+shape = SubResource("BoxShape3D_01n6w")
+
+[node name="River 4" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 3.46547, 0.177471, 0.00146866, -41.6169)
+
+[node name="Area3D" type="Area3D" parent="Obstacles/River 4"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+script = ExtResource("13_r6p65")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 4/Area3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/River 4"]
+material_override = ExtResource("14_r6p65")
+mesh = SubResource("BoxMesh_si52b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 4"]
+shape = SubResource("BoxShape3D_01n6w")
+
+[node name="River 5" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 3.46547, -0.111006, 0.0111809, -48.0916)
+
+[node name="Area3D" type="Area3D" parent="Obstacles/River 5"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+script = ExtResource("13_r6p65")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 5/Area3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/River 5"]
+material_override = ExtResource("14_r6p65")
+mesh = SubResource("BoxMesh_si52b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 5"]
 shape = SubResource("BoxShape3D_01n6w")
 
 [node name="Road" type="StaticBody3D" parent="Obstacles"]
@@ -1002,4 +1056,42 @@ mesh = SubResource("BoxMesh_si52b")
 shape = SubResource("BoxShape3D_01n6w")
 
 [node name="Car" parent="Obstacles" instance=ExtResource("16_01n6w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -24.6913)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -24.8536)
+
+[node name="Road2" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -59.5632)
+
+[node name="Area3D" type="Area3D" parent="Obstacles/Road2"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road2/Area3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road2"]
+material_override = ExtResource("13_4w45t")
+mesh = SubResource("BoxMesh_si52b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road2"]
+shape = SubResource("BoxShape3D_01n6w")
+
+[node name="Car2" parent="Obstacles" instance=ExtResource("16_01n6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -59.4167)
+
+[node name="Road3" type="StaticBody3D" parent="Obstacles"]
+transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -67.3324)
+
+[node name="Area3D" type="Area3D" parent="Obstacles/Road3"]
+transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road3/Area3D"]
+shape = SubResource("BoxShape3D_r6p65")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road3"]
+material_override = ExtResource("13_4w45t")
+mesh = SubResource("BoxMesh_si52b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road3"]
+shape = SubResource("BoxShape3D_01n6w")
+
+[node name="Car3" parent="Obstacles" instance=ExtResource("16_01n6w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -67.186)
