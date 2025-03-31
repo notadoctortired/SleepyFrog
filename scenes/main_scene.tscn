@@ -79,7 +79,7 @@ light_bake_mode = 1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 7.45058e-09, 3.5, 5)
+transform = Transform3D(1, 0, 0, 0, 0.957826, 0.287348, 0, -0.287348, 0.957826, 0, 3.5, 5)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]
 process_priority = 300
@@ -1039,59 +1039,59 @@ mesh = SubResource("BoxMesh_si52b")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/River 5"]
 shape = SubResource("BoxShape3D_01n6w")
 
-[node name="Road" type="StaticBody3D" parent="Obstacles"]
+[node name="Road 1" type="StaticBody3D" parent="Obstacles"]
 transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -25)
 
-[node name="Area3D" type="Area3D" parent="Obstacles/Road"]
+[node name="Area3D" type="Area3D" parent="Obstacles/Road 1"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road 1/Area3D"]
 shape = SubResource("BoxShape3D_r6p65")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road 1"]
 material_override = ExtResource("13_4w45t")
 mesh = SubResource("BoxMesh_si52b")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road 1"]
 shape = SubResource("BoxShape3D_01n6w")
 
-[node name="Car" parent="Obstacles" instance=ExtResource("16_01n6w")]
+[node name="Car 1" parent="Obstacles" instance=ExtResource("16_01n6w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -24.8536)
 
-[node name="Road2" type="StaticBody3D" parent="Obstacles"]
+[node name="Road 2" type="StaticBody3D" parent="Obstacles"]
 transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -59.5632)
 
-[node name="Area3D" type="Area3D" parent="Obstacles/Road2"]
+[node name="Area3D" type="Area3D" parent="Obstacles/Road 2"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road2/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road 2/Area3D"]
 shape = SubResource("BoxShape3D_r6p65")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road 2"]
 material_override = ExtResource("13_4w45t")
 mesh = SubResource("BoxMesh_si52b")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road 2"]
 shape = SubResource("BoxShape3D_01n6w")
 
-[node name="Car2" parent="Obstacles" instance=ExtResource("16_01n6w")]
+[node name="Car 2" parent="Obstacles" instance=ExtResource("16_01n6w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -59.4167)
 
-[node name="Road3" type="StaticBody3D" parent="Obstacles"]
+[node name="Road 3" type="StaticBody3D" parent="Obstacles"]
 transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 4.4, 0, 0, -67.3324)
 
-[node name="Area3D" type="Area3D" parent="Obstacles/Road3"]
+[node name="Area3D" type="Area3D" parent="Obstacles/Road 3"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road3/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road 3/Area3D"]
 shape = SubResource("BoxShape3D_r6p65")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Road 3"]
 material_override = ExtResource("13_4w45t")
 mesh = SubResource("BoxMesh_si52b")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Road 3"]
 shape = SubResource("BoxShape3D_01n6w")
 
-[node name="Car3" parent="Obstacles" instance=ExtResource("16_01n6w")]
+[node name="Car 3" parent="Obstacles" instance=ExtResource("16_01n6w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62546, 1.34799, -67.186)
