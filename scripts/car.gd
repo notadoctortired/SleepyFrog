@@ -12,12 +12,9 @@ func _ready():
 func _integrate_forces(PhysicsDirectBodyState3D):
 	print(speed)
 	lock_rotation = 1
-<<<<<<< HEAD
 	linear_velocity.x += ran_speed
 	print(linear_velocity.x)
-=======
 	linear_velocity.x += speed
->>>>>>> 792022762ccca5c63b05b39c9e1dca4dc4fb3cc4
 	
 	if respawn:
 		freeze = 1
@@ -35,5 +32,4 @@ func _process(delta):
 		speed = randf_range(1,3)
 		position = origin_pos
 		respawn = false
-		ran_speed = RandomNumberGenerator.new(0,2)
 		

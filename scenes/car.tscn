@@ -14,7 +14,6 @@
 [node name="Car_Moving" type="RigidBody3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_c35m8")
-speed = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Car_Moving"]
 transform = Transform3D(1.24923, 0, 0, 0, 1.45615, 0, 0, 0, 2.89726, 0, 0, 0)

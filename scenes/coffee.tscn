@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://djn8ltsdsvnjb"]
+[gd_scene load_steps=8 format=3 uid="uid://djn8ltsdsvnjb"]
 
 [ext_resource type="Script" uid="uid://wxe3cc3pt2px" path="res://scripts/add_energy.gd" id="1_tlbmd"]
 
@@ -7,6 +7,21 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fe1ek"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vgd82"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tlbmd"]
+emission_shape = 1
+emission_sphere_radius = 1.5
+spread = 50.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vgd82"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ovig0"]
+material = SubResource("StandardMaterial3D_vgd82")
+radius = 0.05
+height = 0.1
 
 [node name="Coffee" type="Node3D"]
 
@@ -20,3 +35,14 @@ shape = SubResource("CapsuleShape3D_tlbmd")
 material_override = SubResource("StandardMaterial3D_fe1ek")
 mesh = SubResource("CapsuleMesh_vgd82")
 skeleton = NodePath("../Collision_Coffee")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Coffee"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69998, 0)
+lod_bias = 0.001
+amount = 40
+lifetime = 0.5
+preprocess = 0.01
+randomness = 1.0
+collision_base_size = 1.0
+process_material = SubResource("ParticleProcessMaterial_tlbmd")
+draw_pass_1 = SubResource("SphereMesh_ovig0")

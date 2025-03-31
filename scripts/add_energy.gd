@@ -16,4 +16,5 @@ func _on_body_entered(body):
 				plr.energy += 20
 			remove_child($Collision_Coffee)
 			remove_child($Mesh_Coffee)
+			remove_child($GPUParticles3D)
 			
