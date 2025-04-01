@@ -151,7 +151,7 @@ script = ExtResource("6_rt2n2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79723, -30.0034)
 
 [node name="Coffee2" parent="Collectibles" instance=ExtResource("7_si52b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.94072, 6.56702, -97.3691)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.70125, 10.0439, -101.995)
 
 [node name="Kill_Plain" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -47, -3)
@@ -359,7 +359,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
 [node name="Cliff_11" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.09104e-06, 0, -4, 0, 6.188, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -75)
+transform = Transform3D(-1.09104e-06, 0, -4, 0, 17.7582, 0, 24.96, 0, -1.74846e-07, -10, 3.5, -75)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_11"]
 material_override = ExtResource("10_e1cbu")
@@ -374,7 +374,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
 [node name="Cliff_12" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -70.5882)
+transform = Transform3D(3.27311e-06, 0, 4, 0, 17.7582, 0, -24.96, 0, 5.24537e-07, 9.99999, 3.5, -70.5882)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_12"]
 material_override = ExtResource("10_e1cbu")
@@ -483,7 +483,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
 [node name="Cliff_19" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(-1.40191e-06, 0, -4, 0, 6.188, 0, 32.0719, 0, -1.74846e-07, -10, 3.5, -149)
+transform = Transform3D(-1.40191e-06, 0, -4, 0, 17.7582, 0, 32.0719, 0, -1.74846e-07, -10, 3.5, -149)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_19"]
 material_override = ExtResource("10_e1cbu")
@@ -498,7 +498,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
 [node name="Cliff_20" type="StaticBody3D" parent="Floor_and_Walls"]
-transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -144.588)
+transform = Transform3D(4.2411e-06, 0, 4, 0, 17.7582, 0, -32.3417, 0, 5.24537e-07, 10, 3.5, -148.616)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_20"]
 material_override = ExtResource("10_e1cbu")
@@ -1125,33 +1125,11 @@ mesh = SubResource("BoxMesh_si52b")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Alleyway/River"]
 shape = SubResource("BoxShape3D_01n6w")
 
-[node name="Ceiling" type="StaticBody3D" parent="Obstacles/Alleyway"]
-transform = Transform3D(21.36, 0, 0, 0, 1, 0, 0, 0, 38.7964, -0.111006, 13.8896, -108.759)
-
-[node name="Area3D" type="Area3D" parent="Obstacles/Alleyway/Ceiling"]
-transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
-script = ExtResource("13_r6p65")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Alleyway/Ceiling/Area3D"]
-shape = SubResource("BoxShape3D_r6p65")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Alleyway/Ceiling"]
-shape = SubResource("BoxShape3D_01n6w")
-
 [node name="Wall_Right" type="StaticBody3D" parent="Obstacles/Alleyway"]
-transform = Transform3D(5.61564, 0, 0, 0, 17.208, 0, 0, 0, 38.796, 6.7314, 3.06126, -108.461)
+transform = Transform3D(8.73287, 0, 0, 0, 11.4587, 0, 0, 0, 38.796, 5.34696, 3.06126, -108.461)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Alleyway/Wall_Right"]
 shape = SubResource("BoxShape3D_si52b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Alleyway/Wall_Right"]
-mesh = SubResource("BoxMesh_01n6w")
-
-[node name="Platform" type="StaticBody3D" parent="Obstacles/Alleyway"]
-transform = Transform3D(11.9553, 0, 0, 0, 5.99498, 0, 0, 0, 13.5565, 8.09852, 2.53553, -97.8251)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Alleyway/Platform"]
-shape = SubResource("BoxShape3D_si52b")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Alleyway/Platform"]
 mesh = SubResource("BoxMesh_01n6w")
