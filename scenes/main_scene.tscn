@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://prwtx4qph4sa"]
+[gd_scene load_steps=34 format=3 uid="uid://prwtx4qph4sa"]
 
 [ext_resource type="Script" uid="uid://dg8ohiisoo6sw" path="res://scripts/player_movement.gd" id="1_w2twt"]
 [ext_resource type="Script" uid="uid://bbvsymvwgh8jk" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="2_7ykc4"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://nrnm1vr2sbfk" path="res://scripts/kill_script.gd" id="13_r6p65"]
 [ext_resource type="Material" uid="uid://gow1ki2m21ci" path="res://materials/Water_Mat.tres" id="14_r6p65"]
 [ext_resource type="PackedScene" uid="uid://cnu2q2p0ew25c" path="res://scenes/car.tscn" id="16_01n6w"]
+[ext_resource type="PackedScene" uid="uid://dxmuju0a2oam6" path="res://scenes/enemy.tscn" id="16_6u1mn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pu3yx"]
 
@@ -1133,3 +1134,6 @@ shape = SubResource("BoxShape3D_si52b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obstacles/Alleyway/Wall_Right"]
 mesh = SubResource("BoxMesh_01n6w")
+
+[node name="Enemy" parent="Obstacles" instance=ExtResource("16_6u1mn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.96776, -19.241)

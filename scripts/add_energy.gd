@@ -17,4 +17,3 @@ func _on_body_entered(body):
 			remove_child($Collision_Coffee)
 			remove_child($Mesh_Coffee)
 			remove_child($GPUParticles3D)
-			

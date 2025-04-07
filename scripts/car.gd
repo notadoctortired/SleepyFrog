@@ -10,10 +10,8 @@ func _ready():
 	origin_pos = get_parent().get_node("Car_Origin").position
 
 func _integrate_forces(PhysicsDirectBodyState3D):
-	print(speed)
 	lock_rotation = 1
 	linear_velocity.x += ran_speed
-	print(linear_velocity.x)
 	linear_velocity.x += speed
 	
 	if respawn:

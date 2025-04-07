@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxmuju0a2oam6"]
+
+[ext_resource type="Script" uid="uid://bqxyrwl48d6pr" path="res://scripts/enemy_movement.gd" id="1_7p1mj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xaro"]
+albedo_color = Color(0.572549, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7k104"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4gyqm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
+
+[node name="Enemy" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+script = ExtResource("1_7p1mj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+material_override = SubResource("StandardMaterial3D_7xaro")
+mesh = SubResource("BoxMesh_7k104")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("BoxShape3D_4gyqm")
+
+[node name="Radius" type="Area3D" parent="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/Radius"]
+transform = Transform3D(10, 0, 0, 0, 0.549729, 0, 0, 0, 10, 0, -0.266367, 0)
+shape = SubResource("BoxShape3D_7p1mj")
