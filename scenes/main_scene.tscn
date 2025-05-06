@@ -642,6 +642,21 @@ shape = SubResource("BoxShape3D_6wevv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
 shape = SubResource("BoxShape3D_e1cbu")
 
+[node name="Cliff_51" type="StaticBody3D" parent="Floor_and_Walls"]
+transform = Transform3D(-72.384, 0, 3.57628e-07, 0, 22.2768, 0, -5.53131e-06, 0, -4, 0.9, 3.5, -230)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor_and_Walls/Cliff_51"]
+material_override = ExtResource("10_e1cbu")
+mesh = ExtResource("9_c1pb6")
+
+[node name="Collision_Cliff" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_51"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98023e-08, -1.19209e-07, -0.0499997)
+shape = SubResource("BoxShape3D_6wevv")
+
+[node name="Collision_Cliff_1" type="CollisionShape3D" parent="Floor_and_Walls/Cliff_51"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51488, -0.174219)
+shape = SubResource("BoxShape3D_e1cbu")
+
 [node name="Cliff_28" type="StaticBody3D" parent="Floor_and_Walls"]
 transform = Transform3D(3.27311e-06, 0, 4, 0, 6.188, 0, -24.96, 0, 5.24537e-07, 10, 3.5, -218.588)
 
@@ -1146,7 +1161,7 @@ skeleton = NodePath("../../River 6")
 shape = SubResource("BoxShape3D_01n6w")
 
 [node name="Victory" type="StaticBody3D" parent="Obstacles"]
-transform = Transform3D(-24.6375, 0, 0, 0, 1, 0, 0, 0, 3.84303, -1.48209, 0.0223618, -239.752)
+transform = Transform3D(-24.6375, 0, 0, 0, 1, 0, 0, 0, 3.84303, -1.48209, 0.0223618, -223.752)
 
 [node name="Area3D" type="Area3D" parent="Obstacles/Victory"]
 transform = Transform3D(1.01, 0, 0, 0, 1.01, 0, 0, 0, 1.01, 0, 0, 0)
